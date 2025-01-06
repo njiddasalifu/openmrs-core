@@ -33,6 +33,23 @@
 		</addColumn>
 		<addForeignKeyConstraint constraintName="patient_identifier_program_id_fk" baseTableName="patient_identifier" baseColumnNames="patient_program_id" referencedTableName="patient_program" referencedColumnNames="patient_program_id" />
 	</changeSet>
+	
+	<!--change set for adding tenantid in openmrs.users table  -->
+	<changeSet id="20250104-tenant_id-addition" author="nsalifu">
+		<comment>Adding 'tenantId' column to 'user' table</comment>
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="user" columnName="tenantId"/>
+			</not>
+		</preConditions>
+		<!-- Add 'tenantId' column -->
+		<addColumn tableName="user">
+			<column name="tenantId" type="int">
+				<constraints nullable="true"/>
+			</column>
+		</addColumn>
+	</changeSet>
+
 
 	<!-- Create the medication_dispense table.  See TRUNK-6071 -->
 	

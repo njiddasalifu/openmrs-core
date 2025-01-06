@@ -605,4 +605,8 @@ public interface UserService extends OpenmrsService {
 	 */
 	@Authorized
 	String getLastLoginTime(User user);
-}
+	// new methods 
+	User getUserById(Integer userId, Integer tenantId);
+	List<User> getUserByTenantId(Integer tenantId);
+	
+} 

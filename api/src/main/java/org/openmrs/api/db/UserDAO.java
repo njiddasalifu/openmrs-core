@@ -216,4 +216,7 @@ public interface UserDAO {
 	 * @see UserService#getLastLoginTime(User)
 	 */
 	String getLastLoginTime(User user);
+	//new methods
+	public User findByUserIdAndTenantId(Integer userId, Integer tenantId) throws DAOException;
+	public List<User> findByTenantId(Integer tenantId) throws DAOException;
 }

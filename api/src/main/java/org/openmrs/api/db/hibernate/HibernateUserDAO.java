@@ -718,4 +718,38 @@ public class HibernateUserDAO implements UserDAO {
 	public String getLastLoginTime(User user) {
 		return user.getUserProperty(OpenmrsConstants.USER_PROPERTY_LAST_LOGIN_TIMESTAMP);
 	}
+	
+	//new methods implementation
+	@Override
+	public User findByUserIdAndTenantId(Integer userId, Integer tenantId) throws DAOException {
+		try {
+			String hql = "FROM User u WHERE u.id = :userId AND u.tenantId = :tenantId";
+			Session session = sessionFactory.getCurrentSession();  // Get current Hibernate session
+			Query<User> query = session.createQuery(hql, User.class);
+			query.setParameter("userId", userId);
+			query.setParameter("tenantId", tenantId);
+
+			// Return the unique result (or null if no result is found)
+			return query.uniqueResult();
+		} catch (Exception e) {
+			throw new DAOException("Error fetching user by userId and tenantId", e);
+		}
+	}
+
+	@Override
+	public List<User> findByTenantId(Integer tenantId) throws DAOException {
+		try {
+			String hql = "FROM User u WHERE u.tenantId = :tenantId";
+			Session session = sessionFactory.getCurrentSession();  // Get current Hibernate session
+			Query<User> query = session.createQuery(hql, User.class);
+			query.setParameter("tenantId", tenantId);
+
+			// Return the list of users
+			return query.list();
+		} catch (Exception e) {
+			throw new DAOException("Error fetching users by tenantId", e);
+		}
+	}
+	
+	
 }

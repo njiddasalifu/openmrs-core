@@ -145,7 +145,19 @@ public class User extends BaseOpenmrsObject implements java.io.Serializable, Att
 	@Column(name = "retire_reason", length = 255)
 	private String retireReason;
 	
+	// new field for tenant id
+	
+	@Column(name= "tenant_id", nullable = false)
+	private String tenantId;
+	
 	// Constructors
+	
+	public String getTenantId(){
+		return tenantId;
+	}
+	public void setTenantId(String tenantId){
+		this.tenantId = tenantId;
+	}
 	
 	/** default constructor */
 	public User() {
